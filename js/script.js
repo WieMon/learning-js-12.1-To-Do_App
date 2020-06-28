@@ -1,17 +1,19 @@
-let toDoList = [//add as an example a few tasks
+let toDoList = [
   // {
-  //   key: 0,
+  //   id: 0,
   //   titleTask: 'Task 1',
   //   commentTask: 'Lorem ipsum 1',
   //   dateTask: '06.08.2020'
   // },
   // {
-  //   key: 1,
+  //   id: 1,
   //   titleTask: 'Task 2',
   //   commentTask: 'Lorem ipsum 2',
   //   dateTask: '08.09.2020'
   // }
 ]; 
+
+
 const inputSearch = document.querySelector('.inputSearch');
 const inputAdd = document.querySelector('.inputAdd');
 const btnSearch = document.querySelector('.btnSearch');
@@ -30,7 +32,7 @@ const addTask = (e) => {
   const dateTask = inputDate.value;
   const commentTask = inputComments.value;
 
-  if (titleTask === '' || dateTask === '') { //add cleaning input after alerts
+  if (titleTask === '' || dateTask === '') { 
     alert ('Invalid input - missing task name or date.'); 
     clearInputs();
     return
@@ -42,7 +44,7 @@ const addTask = (e) => {
   }
   const task = document.createElement('li');
   task.className = 'task';
-  task.innerHTML = `<strong>Task:</strong> ${toDoList.titleTask} '||' ${titleTask} <br><strong>Comments:</strong> ${commentTask}<br><strong>Due date:</strong> ${dateTask} <button>Delete</button>`;
+  task.innerHTML = `<strong>Task:</strong> ${titleTask} <br><strong>Comments:</strong> ${commentTask}<br><strong>Due date:</strong> ${dateTask} <button>Delete</button>`;
   ul.appendChild(task);
   if(dateTask === minDate) {
     task.style.color = 'red';
@@ -62,19 +64,51 @@ const clearInputs = () => {
 
 const removeTask = (e) => {
   e.target.parentNode.remove();
-  const index = e.target.parentNode.dataset.key;
+
+  // const index = e.target.parentNode.dataset.key; //dataset.key
+  // console.log('indexFromRemoveTask: ', index); //dataset.key
+  // const index = e.target.parentNode.id; //id
+  // console.log('indexFromRemoveTask: ', index); //id
+  const index = e.target.parentNode.id; //id
+  //console.log('indexFromRemoveTask: ', index); //id
+
   toDoList.splice(index, 1);
   numberTasks.textContent = listTasks.length; 
   renderList();
 }
 
+//Version 1: dataset.key, key
+// const renderList = () => {
+//   ul.textContent = "";
+//   toDoList.forEach((toDoElement, key) => {
+//   toDoElement.dataset.key = key;//key vs id
+//   console.log('toDoElement.dataset.key: ', toDoElement.dataset.key);
+//   console.log('key: ', key);
+//    ul.appendChild(toDoElement);
+//   })
+//  }
+
+//Version 2: id, index
+//  const renderList = () => {
+//   ul.textContent = "";
+//   toDoList.forEach((toDoElement, index) => {//key vs id
+//    toDoElement.id = index;//key vs id
+//    console.log('indexFromRenderList: ', index);
+//    console.log('toDoElement.idFromRenderList: ', toDoElement.id);
+//    ul.appendChild(toDoElement);
+//   })
+//  }
+
+//Version 3: id, key
 const renderList = () => {
   ul.textContent = "";
   toDoList.forEach((toDoElement, key) => {
-   toDoElement.dataset.key = key;
+  toDoElement.id = key;
+  //npmconsole.log('toDoElement.id: ', toDoElement.id);
+  //console.log('key: ', key);
    ul.appendChild(toDoElement);
   })
- }
+}
 
 const searchTask = (e) => {
   const searchText = inputSearch.value.toLowerCase();
