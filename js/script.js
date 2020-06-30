@@ -1,17 +1,4 @@
-let toDoList = [
-  // {
-  //   id: 0,
-  //   titleTask: 'Task 1',
-  //   commentTask: 'Lorem ipsum 1',
-  //   dateTask: '06.08.2020'
-  // },
-  // {
-  //   id: 1,
-  //   titleTask: 'Task 2',
-  //   commentTask: 'Lorem ipsum 2',
-  //   dateTask: '08.09.2020'
-  // }
-]; 
+let toDoList = []; 
 
 
 const inputSearch = document.querySelector('.inputSearch');
@@ -64,7 +51,8 @@ const clearInputs = () => {
 
 const removeTask = (e) => {
   e.target.parentNode.remove();
-
+console.log('e.target: ', e.target);
+console.log('e.target.parentNode: ', e.target.parentNode);
   // const index = e.target.parentNode.dataset.key; //dataset.key
   // console.log('indexFromRemoveTask: ', index); //dataset.key
   // const index = e.target.parentNode.id; //id
@@ -116,6 +104,7 @@ const searchTask = (e) => {
               toDoElement.textContent.toLowerCase().includes(searchText));
   ul.textContent = '';
   toDoList.forEach(toDoElement => ul.appendChild(toDoElement));
+  inputSearch.value = '';
   }
 
 btnSearch.addEventListener('click', searchTask);
